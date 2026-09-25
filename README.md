@@ -2,7 +2,7 @@
 
 Apollo is a local-first desktop AI assistant.
 
-The repository has been reorganised into a clean `src/` layout. Source code, runtime state, models, and machine-specific paths are now separated instead of being mixed inside one uploaded folder.
+The repository now uses a clean `src/` layout so source code, runtime state, models, and machine-specific paths are separated.
 
 ## Layout
 
@@ -19,7 +19,31 @@ apollo/
 └─ requirements.txt
 ```
 
-Generated Python caches, runtime storage, model weights and local audio are excluded from Git.
+## Chat behaviour
+
+Apollo understands ordinary chat plus explicit research-style requests.
+
+Examples:
+
+```text
+research fusion power
+please investigate sodium-ion batteries
+learn about the Casimir effect
+look into local LLM quantisation
+```
+
+A research request runs several local-model passes:
+
+1. fundamentals and terminology
+2. practical uses and constraints
+3. a skeptical/critical check
+4. synthesis into one compact durable memory note
+
+Apollo stores the compact note instead of dumping every research pass into chat. The user gets a short completion message, and later relevant questions can automatically reuse the learned note.
+
+This is **local model research**, not internet verification. The research prompts explicitly prohibit invented citations and preserve uncertainty so a future web-research provider can be added cleanly.
+
+Apollo's normal personality now includes occasional dry, light sarcasm. It is deliberately disabled for serious, medical, safety-critical or distressing situations.
 
 ## Apollo locations
 
@@ -44,17 +68,12 @@ APOLLO_VOICE_MODEL_DIR
 APOLLO_VOICE_DOWNLOAD_DIR
 ```
 
-This keeps the code usable on the main Windows machine, another PC, or a GitHub Codespace without editing Python source every time a drive or folder moves.
+This keeps the code usable on the main Windows machine, another PC, or a GitHub Codespace without editing Python source whenever a drive or folder changes.
 
 ## Install
 
 ```powershell
 python -m pip install -r requirements.txt
-```
-
-Run:
-
-```powershell
 python run_apollo.py
 ```
 
@@ -64,11 +83,4 @@ The default model filename is:
 qwen2.5-coder-7b-instruct-q5_k_m.gguf
 ```
 
-To use another model:
-
-```powershell
-$env:APOLLO_MODEL_PATH = "F:\Apollo\models\your-model.gguf"
-python run_apollo.py
-```
-
-Large model files are intentionally not stored in this repository.
+Large model files, generated caches, runtime storage and local voice audio are intentionally not stored in this repository.
