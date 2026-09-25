@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments / IDE
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+
+# Runtime state
+storage/
+logs/
+cache/
+backups/
+trash/
+updates/
+
+# Local models / large artifacts
+models/
+*.gguf
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.wav
+
+# OS
+.DS_Store
+Thumbs.db

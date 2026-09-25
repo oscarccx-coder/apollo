@@ -1,26 +1,26 @@
-# apollo_main.py
+from __future__ import annotations
+
 from pathlib import Path
 import multiprocessing as mp
 
 import config
 from core.llm_interface import LLMEngine
 from core.memory_core import MemoryStore
-
-
-def ensure_dirs():
-    Path("storage").mkdir(exist_ok=True)
+from paths import ensure_runtime_dirs
 
 
 def build_engine_and_memory():
-    ensure_dirs()
+    ensure_runtime_dirs()
 
-    model_path = Path(config.MODEL_PATH)
-    if not model_path.exists():
-        raise FileNotFoundError(f"MODEL_PATH not found:\n  {config.MODEL_PATH}")
+    model_path = Path(config.MODEL_PATH).expanduser()
+    if not model_path.is_file():
+        raise FileNotFoundError(
+            "Apollo model was not found.\n"
+            f"Expected: {model_path}\n"
+            "Set APOLLO_MODEL_PATH to override the model location."
+        )
 
     memory = MemoryStore(config.MEMORY_FILE)
-
-    # Keep conservative while stabilising
     engine = LLMEngine(
         model_path=str(model_path),
         n_ctx=config.N_CTX,
@@ -34,17 +34,18 @@ def build_engine_and_memory():
 
 
 def main():
+    mp.freeze_support()
     engine, memory = build_engine_and_memory()
 
     from gui.apollo_gui import run_gui
+
     run_gui(
         engine=engine,
         memory=memory,
         app_title=config.APP_TITLE,
-        max_turns_in_context=config.MAX_TURNS_IN_CONTEXT
+        max_turns_in_context=config.MAX_TURNS_IN_CONTEXT,
     )
 
 
 if __name__ == "__main__":
-    mp.freeze_support()
     main()
