@@ -1,11 +1,6 @@
 from pathlib import Path
-import sys
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SRC_DIR = PROJECT_ROOT / "src"
-sys.path.insert(0, str(SRC_DIR))
-
-import paths
+from apollo import paths
 
 
 def test_runtime_paths_are_paths():
@@ -16,9 +11,14 @@ def test_runtime_paths_are_paths():
         paths.VOICE_MODEL_DIR,
         paths.VOICE_DOWNLOAD_DIR,
         paths.MEMORY_FILE,
+        paths.UPDATE_DIR,
     ):
         assert isinstance(value, Path)
 
 
-def test_memory_file_lives_in_storage():
+def test_runtime_children_live_under_storage():
     assert paths.MEMORY_FILE == paths.STORAGE_DIR / "memory.json"
+    assert paths.LOG_DIR == paths.STORAGE_DIR / "logs"
+    assert paths.CACHE_DIR == paths.STORAGE_DIR / "cache"
+    assert paths.BACKUP_DIR == paths.STORAGE_DIR / "backups"
+    assert paths.UPDATE_DIR == paths.STORAGE_DIR / "updates"

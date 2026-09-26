@@ -1,7 +1,6 @@
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -19,7 +18,12 @@ logs/
 cache/
 backups/
 trash/
+
+# Downloaded/applied update payloads
 updates/
+*.patch
+*.zip
+*.sha256.txt
 
 # Local models / large artifacts
 models/

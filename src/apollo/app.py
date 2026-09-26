@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from pathlib import Path
 import multiprocessing as mp
+from pathlib import Path
 
-import config
-from core.llm_interface import LLMEngine
-from core.memory_core import MemoryStore
-from paths import ensure_runtime_dirs
+from apollo import config
+from apollo.core.llm.interface import LLMEngine
+from apollo.core.memory.store import MemoryStore
+from apollo.paths import ensure_runtime_dirs
 
 
 def build_engine_and_memory():
@@ -33,11 +33,11 @@ def build_engine_and_memory():
     return engine, memory
 
 
-def main():
+def main() -> None:
     mp.freeze_support()
     engine, memory = build_engine_and_memory()
 
-    from gui.apollo_gui import run_gui
+    from apollo.ui.main_window import run_gui
 
     run_gui(
         engine=engine,

@@ -9,7 +9,7 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from apollo_main import main
+from apollo.app import main
 
 
 if __name__ == "__main__":
