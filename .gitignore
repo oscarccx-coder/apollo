@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments / IDE
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+
+# Runtime state
+storage/
+logs/
+cache/
+backups/
+trash/
+
+# Downloaded/applied update payloads
+updates/
+*.patch
+*.zip
+*.sha256.txt
+
+# Local models / large artifacts
+models/
+*.gguf
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.wav
+
+# OS
+.DS_Store
+Thumbs.db

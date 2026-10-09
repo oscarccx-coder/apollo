@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apollo-local-ai"
+version = "0.1.0"
+description = "Apollo local-first desktop AI assistant"
+requires-python = ">=3.11"
+dependencies = [
+  "PyQt6>=6.7",
+  "llama-cpp-python>=0.3",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
